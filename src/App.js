@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import Login from "./component/Login/Login";
+import PageNotFound from "./component/PageNotFound/PageNotFound";
+import Profile from "./component/Profile/Profile";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+     
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <Routes>
+        <Route path={"/"} element={<Login />} />
+        <Route path={"Login"} element={<Login />} />
+        <Route path={"/Profile"} element={<Profile />} />
+        <Route path={"/*"} element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
