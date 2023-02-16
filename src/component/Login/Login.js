@@ -6,13 +6,19 @@ import "./Login.css";
 import facebook from "../../assets/images/facebook.png";
 import github from "../../assets/images/github.png";
 import google from "../../assets/images/google.png";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../Reducer/LoginAction";
 function Login() {
   const [buttonsStatus, setButtonsStatus] = useState(false);
   const [loginUser, setLoginUser] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (validator.isEmail(loginUser.email) === false) {
@@ -24,12 +30,17 @@ function Login() {
       );
     }
     toast.success("Login SuccessFully");
+    dispatch(userLogin(loginUser.email));
     navigate("/Profile");
   };
   const readValue = (e) => {
     const { name, value } = e.target;
     setLoginUser({ ...loginUser, [name]: value });
   };
+
+  function onChange(value) {
+    console.log("Captcha value:", value);
+  }
   return (
     <div className="container my-5">
       <div className="row">
@@ -84,6 +95,12 @@ function Login() {
                   >
                     Registration
                   </button>
+                </div>
+                <div className="d-flex justify-content-center">
+                  <ReCAPTCHA
+                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                    onChange={onChange}
+                  />
                 </div>
               </form>
             </div>

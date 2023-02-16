@@ -1,10 +1,8 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 function Profile() {
-  const readValue = (e) => {
-    // const { name, value } = e.target;
-    // setLoginUser({ ...loginUser, [name]: value });
-  };
+  const email = useSelector((state) => state.Login.email);
+  console.log('email',email);
   return (
     <div className="container my-5">
       <div className="row">
@@ -53,6 +51,7 @@ function Profile() {
                           name="email"
                           class="form-control"
                           placeholder="Email"
+                          value={email}
                         />
                       </div>
                     </div>
